@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b6bcb">
+  <meta name="description" content="Mi Lista de Mercado: lista, presupuesto y catálogo sin depender de una cuenta.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>Mi Lista de Mercado</title>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Mi Lista de Mercado</h1>
+      <p id="status">Datos guardados en este iPhone</p>
+    </div>
+    <button id="simpleToggle" class="secondary" aria-pressed="false">Modo sencillo</button>
+  </header>
+
+  <main>
+    <section class="summary" aria-label="Resumen">
+      <div><span>Presupuesto</span><strong id="budgetText">$0</strong></div>
+      <div><span>Total</span><strong id="totalText">$0</strong></div>
+      <div><span>Te queda</span><strong id="remainingText">$0</strong></div>
+    </section>
+
+    <section class="card">
+      <h2>Agregar producto</h2>
+      <div class="grid">
+        <label>Producto<input id="name" autocomplete="off" placeholder="Ej. Arroz"></label>
+        <label>Cantidad<input id="quantity" inputmode="decimal" value="1"></label>
+        <label>Precio<input id="price" inputmode="decimal" placeholder="Ej. 12.990"></label>
+        <label>Categoría<select id="category">
+          <option>Mercado</option><option>Frutas y verduras</option><option>Carnes</option>
+          <option>Lácteos</option><option>Bebidas</option><option>Aseo</option>
+          <option>Panadería</option><option>Otros</option>
+        </select></label>
+        <label>Supermercado<input id="supermarket" autocomplete="off" placeholder="Opcional"></label>
+        <label>Código de barras<input id="barcode" inputmode="numeric" placeholder="Opcional"></label>
+      </div>
+      <div class="actions">
+        <label class="photo-btn">📷 Foto<input id="photo" type="file" accept="image/*" capture="environment" hidden></label>
+        <button id="addBtn" class="primary">AGREGAR</button>
+        <button id="catalogBtn" class="secondary">CATÁLOGO</button>
+      </div>
+      <small>Precio colombiano: 12.990, 12.990,50 o 12,99.</small>
+    </section>
+
+    <section class="card">
+      <div class="row-between">
+        <h2>Presupuesto</h2>
+        <button id="budgetBtn" class="secondary">Cambiar</button>
+      </div>
+      <p id="budgetHint">Define cuánto quieres gastar.</p>
+    </section>
+
+    <section class="card">
+      <div class="row-between">
+        <h2>Mi lista</h2>
+        <button id="shareBtn" class="secondary">Compartir</button>
+      </div>
+      <div id="list"></div>
+      <p id="empty" class="muted">Todavía no hay productos.</p>
+    </section>
+
+    <section class="card">
+      <div class="row-between">
+        <h2>Herramientas</h2>
+        <div class="actions compact">
+          <button id="exportBtn" class="secondary">Exportar</button>
+          <button id="importBtn" class="secondary">Importar</button>
+          <input id="importFile" type="file" accept="application/json" hidden>
+          <button id="clearBtn" class="danger">Borrar lista</button>
+        </div>
+      </div>
+      <p class="muted">La información se guarda localmente. No se envía a un servidor.</p>
+    </section>
+  </main>
+
+  <dialog id="budgetDialog">
+    <form method="dialog" id="budgetForm">
+      <h2>Presupuesto</h2>
+      <label>Valor<input id="budgetInput" inputmode="decimal" placeholder="Ej. 200.000"></label>
+      <div class="actions"><button value="cancel" class="secondary">Cancelar</button><button id="saveBudget" value="default" class="primary">Guardar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="catalogDialog">
+    <div class="row-between"><h2>Catálogo local</h2><button id="closeCatalog" class="secondary">Cerrar</button></div>
+    <div id="catalogList"></div>
+  </dialog>
+
+  <dialog id="barcodeDialog">
+    <form method="dialog">
+      <h2>Buscar código</h2>
+      <p>En Safari/iPhone la cámara para códigos depende del soporte del navegador. Puedes escribir el código aquí.</p>
+      <label>Código<input id="lookupBarcode" inputmode="numeric"></label>
+      <div class="actions"><button value="cancel" class="secondary">Cancelar</button><button id="lookupBtn" value="default" class="primary">Buscar</button></div>
+    </form>
+  </dialog>
+
+<script src="app.js" defer></script>
+</body>
+</html>
